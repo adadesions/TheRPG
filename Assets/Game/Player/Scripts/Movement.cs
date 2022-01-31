@@ -11,9 +11,10 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            lastRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            //lastRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            MoveToPosition();
         }
 
-        Debug.DrawRay(lastRay.origin, lastRay.direction * 100);
+        //Debug.DrawRay(lastRay.origin, lastRay.direction * 100);
     }
 }
