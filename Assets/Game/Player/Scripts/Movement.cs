@@ -17,4 +17,16 @@ public class Movement : MonoBehaviour
 
         //Debug.DrawRay(lastRay.origin, lastRay.direction * 100);
     }
+
+    private void MoveToPosition()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        bool hasHit = Physics.Raycast(ray, out hit);
+
+        if (hasHit)
+        {
+            GetComponent<NavMeshAgent>().destination = hit.point;
+        }
+    }
 }
