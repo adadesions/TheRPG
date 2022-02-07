@@ -11,11 +11,10 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            //lastRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             MoveToPosition();
         }
 
-        //Debug.DrawRay(lastRay.origin, lastRay.direction * 100);
+        UpdateAnimator();
     }
 
     private void MoveToPosition()
@@ -28,5 +27,16 @@ public class Movement : MonoBehaviour
         {
             GetComponent<NavMeshAgent>().destination = hit.point;
         }
+    }
+
+    private void UpdateAnimator()
+    {
+        Vector3 velocity = GetComponent<NavMeshAgent>().velocity;
+
+        // Global to Local
+        Vector3 localVelocity = transform.InverseTransformDirection(velocity);
+
+        float speed = localVelocity.z;
+        GetComponent<Animator>().SetFloat("forwardSpeed", speed);
     }
 }
