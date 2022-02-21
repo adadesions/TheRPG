@@ -7,14 +7,23 @@ namespace TheRPG.Combat
 {
     public class Fighter : MonoBehaviour
     {
+        [SerializeField] float weaponRange = 2f;
         Transform target;
 
         void Update()
         {
             if (target != null)
             {
-                GetComponent<Mover>().MoveTo(target.position);
-                target = null;
+                bool isInRange = Vector3.Distance(transform.position, target.position) <= weaponRange;
+                if (isInRange)
+                {
+                    GetComponent<Mover>().Stop();
+                }
+                else
+                {
+                    GetComponent<Mover>().MoveTo(target.position);
+                    target = null;
+                }
             }    
         }
 

@@ -17,6 +17,12 @@ namespace TheRPG.Movement
         public void MoveTo(Vector3 hit)
         {
             GetComponent<NavMeshAgent>().destination = hit;
+            GetComponent<NavMeshAgent>().isStopped = false;
+        }
+
+        public void Stop()
+        {
+            GetComponent<NavMeshAgent>().isStopped = true;
         }
 
 
