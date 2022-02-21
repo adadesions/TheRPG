@@ -1,18 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TheRPG.Movement;
 
-public class PlayerController : MonoBehaviour
+namespace TheRPG.Controller
 {
-    // Start is called before the first frame update
-    void Start()
+    public class PlayerController : MonoBehaviour
     {
-        
-    }
+        void Update()
+        {
+            if (Input.GetMouseButton(0))
+            {
+                MoveToPosition();
+            }
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void MoveToPosition()
+        {
+            RaycastHit hit;
+            bool hasHit = Physics.Raycast(GetMouseRay(), out hit);
+
+            if (hasHit)
+            {
+                GetComponent<Mover>().MoveTo(hit.point);
+            }
+        }
+
+        private static Ray GetMouseRay()
+        {
+            return Camera.main.ScreenPointToRay(Input.mousePosition);
+        }
     }
 }
+
