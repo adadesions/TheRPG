@@ -17,7 +17,12 @@ namespace TheRPG.Combat
             if (!GetInRange())
             {
                 GetComponent<Mover>().MoveTo(target.position);
-            }    
+            }
+            else
+            {
+                GetComponent<Mover>().Stop();
+                GetComponent<Animator>().SetTrigger("attack");
+            }
         }
 
         private bool GetInRange()
@@ -28,6 +33,7 @@ namespace TheRPG.Combat
         public void Attack(CombatTarget combatTarget)
         {
             target = combatTarget.transform;
+            
             print("Attacking!!");
         }
 
