@@ -12,25 +12,27 @@ namespace TheRPG.Combat
 
         void Update()
         {
-            if (target != null)
+            if (target == null) return;
+            if (!GetIsInRange())
             {
-                bool isInRange = Vector3.Distance(transform.position, target.position) <= weaponRange;
-                if (isInRange)
-                {
-                    GetComponent<Mover>().Stop();
-                }
-                else
-                {
-                    GetComponent<Mover>().MoveTo(target.position);
-                    target = null;
-                }
-            }    
+                GetComponent<Mover>().MoveTo(target.position);
+            }
+        }
+
+        private bool GetIsInRange()
+        {
+            return Vector3.Distance(transform.position, target.position) < weaponRange;
         }
 
         public void Attack(CombatTarget combatTarget)
         {
             target = combatTarget.transform;
             print("Attacking!!");
+        }
+
+        public void Cancel()
+        {
+            target = null;
         }
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using TheRPG.Combat;
 
 namespace TheRPG.Movement
 {
@@ -12,6 +13,12 @@ namespace TheRPG.Movement
         void Update()
         {
             UpdateAnimator();
+        }
+
+        public void StartMove(Vector3 destination)
+        {
+            GetComponent<Fighter>().Cancel();
+            MoveTo(destination);
         }
 
         public void MoveTo(Vector3 hit)
