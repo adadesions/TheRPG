@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using TheRPG.Combat;
 
 namespace TheRPG.Movement
 {
@@ -18,6 +19,12 @@ namespace TheRPG.Movement
         {
             GetComponent<NavMeshAgent>().destination = hit;
             GetComponent<NavMeshAgent>().isStopped = false;
+        }
+
+        public void StartMoveAction(Vector3 destination)
+        {
+            GetComponent<Fighter>().Cancel();
+            MoveTo(destination);
         }
 
         public void Stop()
