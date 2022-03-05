@@ -17,6 +17,11 @@ namespace TheRPG.Combat
             {
                 GetComponent<Mover>().MoveTo(target.position);
             }
+            else
+            {
+                GetComponent<Mover>().Stop();
+                GetComponent<Animator>().SetTrigger("attack");
+            }
         }
 
         private bool GetIsInRange()
