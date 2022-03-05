@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TheRPG.Movement;
+using TheRPG.Core;
 using UnityEngine;
 
 namespace TheRPG.Combat
@@ -31,8 +32,8 @@ namespace TheRPG.Combat
 
         public void Attack(CombatTarget combatTarget)
         {
-            target = combatTarget.transform;
-            print("Attacking!!");
+            GetComponent<ActionScheduler>().StartAction(this);
+            target = combatTarget.transform;            
         }
 
         public void Cancel()
