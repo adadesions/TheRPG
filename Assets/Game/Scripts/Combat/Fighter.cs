@@ -34,9 +34,7 @@ namespace TheRPG.Combat
         {
             if (timeSinceLastAttack > timeBetweenAttack)
             {
-                GetComponent<Animator>().SetTrigger("attack");
-                target.GetComponent<Health>().TakeDamage(weaponDamage);
-
+                GetComponent<Animator>().SetTrigger("attack");              
                 timeSinceLastAttack = 0;
             }   
         }
@@ -55,6 +53,12 @@ namespace TheRPG.Combat
         public void Cancel()
         {
             target = null;
+        }
+
+        // Animation Event methods
+        void Hit()
+        {
+            target.GetComponent<Health>().TakeDamage(weaponDamage);
         }
     }
 }
