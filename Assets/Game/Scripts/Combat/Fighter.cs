@@ -16,7 +16,7 @@ namespace TheRPG.Combat
 
         void Update()
         {
-            timeSinceLastAttack = Time.deltaTime;
+            timeSinceLastAttack += Time.deltaTime;
             if (target == null) return;
             if (!GetIsInRange())
             {
