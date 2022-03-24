@@ -13,7 +13,7 @@ namespace TheRPG.Core
             if (currentAction == action) return;
             if (currentAction != null)
             {
-                print("Cancelling: " + currentAction);
+                print("Canceling: " + currentAction);
                 currentAction.Cancel();
             }
             currentAction = action;

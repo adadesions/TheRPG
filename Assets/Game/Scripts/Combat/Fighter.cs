@@ -9,10 +9,15 @@ namespace TheRPG.Combat
     public class Fighter : MonoBehaviour, IAction
     {
         [SerializeField] float weaponRange = 2f;
+        [SerializeField] float timeBetweenAttack = 1f;
+        [SerializeField] float weaponDamage = 2f;
+
+        float timeSinceLastAttack = 0;
         Transform target;
 
         void Update()
         {
+            timeSinceLastAttack += Time.deltaTime;
             if (target == null) return;
             if (!GetIsInRange())
             {
@@ -21,8 +26,23 @@ namespace TheRPG.Combat
             else
             {
                 GetComponent<Mover>().Cancel();
-                GetComponent<Animator>().SetTrigger("attack");
+                AttackBehaviour();
             }
+        }
+
+        private void AttackBehaviour()
+        {
+            if (timeSinceLastAttack > timeBetweenAttack)
+            {
+                GetComponent<Animator>().SetTrigger("attack");
+                timeSinceLastAttack = 0;
+            }         
+        }
+
+        void Hit()
+        {
+            Health healthComponent = target.GetComponent<Health>();
+            healthComponent.TakeDamage(weaponDamage);
         }
 
         private bool GetIsInRange()
