@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace TheRPG.Combat
 {
-    public class Fighter : MonoBehaviour
+    public class Fighter : MonoBehaviour, IAction
     {
         [SerializeField] float weaponRange = 2f;
         Transform target;
@@ -20,7 +20,7 @@ namespace TheRPG.Combat
             }
             else
             {
-                GetComponent<Mover>().Stop();
+                GetComponent<Mover>().Cancel();
                 GetComponent<Animator>().SetTrigger("attack");
             }
         }

@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using TheRPG.Combat;
 using TheRPG.Core;
 
 namespace TheRPG.Movement
 {
-    public class Mover : MonoBehaviour
+    public class Mover : MonoBehaviour, IAction
     {
         Ray lastRay;
         // Update is called once per frame
@@ -19,7 +18,6 @@ namespace TheRPG.Movement
         public void StartMove(Vector3 destination)
         {
             GetComponent<ActionScheduler>().StartAction(this);
-            GetComponent<Fighter>().Cancel();
             MoveTo(destination);
         }
 
@@ -29,7 +27,7 @@ namespace TheRPG.Movement
             GetComponent<NavMeshAgent>().isStopped = false;
         }
 
-        public void Stop()
+        public void Cancel()
         {
             GetComponent<NavMeshAgent>().isStopped = true;
         }
