@@ -21,6 +21,11 @@ namespace TheRPG.Combat
             }
         }
 
+        public bool GetIsDead()
+        {
+            return isDead;
+        }
+
         private void Die()
         {
             isDead = true;

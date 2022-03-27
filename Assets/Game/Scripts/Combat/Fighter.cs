@@ -32,11 +32,40 @@ namespace TheRPG.Combat
 
         private void AttackBehaviour()
         {
+            transform.LookAt(target);
+            bool isDead = target.GetComponent<Health>().GetIsDead();
             if (timeSinceLastAttack > timeBetweenAttack)
             {
-                GetComponent<Animator>().SetTrigger("attack");              
+                AttackAction();             
                 timeSinceLastAttack = 0;
-            }   
+            }
+
+            if (isDead)
+            {
+                Cancel();
+            }
+            
+        }
+
+        private void AttackAction()
+        {
+            Animator animator = GetComponent<Animator>();
+            if (weaponRange >= 12)
+            {
+                animator.SetTrigger("rangeAttack");
+            }
+            else
+            {
+                animator.SetTrigger("attack");
+            }
+        }
+
+        public bool CanAttack(CombatTarget combetTarget)
+        {
+            if (combetTarget == null) return false;
+            Health targetHealth = combetTarget.GetComponent<Health>();
+
+            return targetHealth != null && !targetHealth.GetIsDead();
         }
 
         private bool GetIsInRange()
@@ -52,13 +81,17 @@ namespace TheRPG.Combat
 
         public void Cancel()
         {
+            GetComponent<Animator>().SetTrigger("stopAttack");
             target = null;
-        }
+        } 
 
         // Animation Event methods
         void Hit()
         {
-            target.GetComponent<Health>().TakeDamage(weaponDamage);
+            if (target != null)
+            {
+                target.GetComponent<Health>().TakeDamage(weaponDamage);
+            }
         }
     }
 }
