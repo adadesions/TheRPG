@@ -60,7 +60,7 @@ namespace TheRPG.Combat
             }
         }
 
-        public bool CanAttack(CombatTarget combetTarget)
+        public bool CanAttack(GameObject combetTarget)
         {
             if (combetTarget == null) return false;
             Health targetHealth = combetTarget.GetComponent<Health>();
@@ -73,7 +73,7 @@ namespace TheRPG.Combat
             return Vector3.Distance(transform.position, target.position) < weaponRange;
         }
 
-        public void Attack(CombatTarget combatTarget)
+        public void Attack(GameObject combatTarget)
         {
             GetComponent<ActionScheduler>().StartAction(this);
             target = combatTarget.transform;            

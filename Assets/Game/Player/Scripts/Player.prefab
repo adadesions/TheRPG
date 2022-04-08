@@ -15,9 +15,12 @@ GameObject:
   - component: {fileID: 2072514729162937143}
   - component: {fileID: 248691690421656597}
   - component: {fileID: 4298615104323878698}
+  - component: {fileID: 707369465}
+  - component: {fileID: 707369464}
+  - component: {fileID: 707369466}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,7 +112,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7476734668280179318}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 49f0e1d66788d4d62a2d552cde691aa0, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 98fb6b31ed66b4a1e950533bd10f02e0, type: 3}
   m_Controller: {fileID: 9100000, guid: ce1e668c6603a4fa3b0851187d487ca9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -155,6 +158,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d33d09cb09e814929af554e15c58ff30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponRange: 5
+  timeBetweenAttack: 1
+  weaponDamage: 20
+--- !u!54 &707369465
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7476734668280179318}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &707369464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7476734668280179318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c6a1f23d620e42978103969ac8147c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &707369466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7476734668280179318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 491d9b1e29ce44f2c8355bb839bef6ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HP: 100
 --- !u!1001 &5682587792842748952
 PrefabInstance:
   m_ObjectHideFlags: 0

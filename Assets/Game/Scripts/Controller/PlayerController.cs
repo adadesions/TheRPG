@@ -23,14 +23,14 @@ namespace TheRPG.Controller
             {
                 CombatTarget target = hit.transform.GetComponent<CombatTarget>();
 
-                if (!GetComponent<Fighter>().CanAttack(target))
+                if (target == null)
                 {
                     continue;
                 }
 
                 if (Input.GetMouseButtonDown(0))
                 {
-                    GetComponent<Fighter>().Attack(target);
+                    GetComponent<Fighter>().Attack(target.gameObject);
                 }
                 return true;
             }
