@@ -18,7 +18,7 @@ namespace TheRPG.Controller
             }
         }
 
-        private int GetNextIndex(int idx)
+        public int GetNextIndex(int idx)
         {
             if (idx+1 == transform.childCount)
             {
@@ -28,7 +28,7 @@ namespace TheRPG.Controller
             return idx + 1;
         }
 
-        private Vector3 GetPoint(int idx)
+        public Vector3 GetPoint(int idx)
         {
             return transform.GetChild(idx).position;
         }
