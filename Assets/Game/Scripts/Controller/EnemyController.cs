@@ -11,12 +11,13 @@ namespace TheRPG.Controller
         [SerializeField] float chaseDistance = 6f;
         Fighter fighter;
         GameObject player;
+        Health health;
 
         private void Start()
         {
             fighter = GetComponent<Fighter>();
+            health = GetComponent<Health>();
             player = GameObject.FindWithTag("Player");
-
         }
 
         private void Update()
