@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TheRPG.Combat;
+using TheRPG.Movement;
 
 namespace TheRPG.Controller
 {
@@ -26,7 +27,7 @@ namespace TheRPG.Controller
 
             if (DistanceToPlayer() < chaseDistance)
             {
-                fighter.Attack(player);
+                fighter.Attack(player);                
             }
             else
             {
@@ -38,6 +39,12 @@ namespace TheRPG.Controller
         {
             Vector3 playerPosition = player.transform.position;
             return Vector3.Distance(transform.position, playerPosition);
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, chaseDistance);
         }
     }
 }
