@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TheRPG.Core;
 
 namespace TheRPG.Combat
 {
@@ -30,6 +31,7 @@ namespace TheRPG.Combat
         {
             isDead = true;
             GetComponent<Animator>().SetTrigger("die");
+            GetComponent<ActionScheduler>().CancelCurrentAction();
         }
     }
 }
