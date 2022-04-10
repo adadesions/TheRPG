@@ -3,15 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using TheRPG.Core;
+using TheRPG.Combat;
 
 namespace TheRPG.Movement
 {
     public class Mover : MonoBehaviour, IAction
     {
         Ray lastRay;
+        Health health;
+        NavMeshAgent navMeshAgent;
+
+        private void Start()
+        {
+            health = GetComponent<Health>();
+            navMeshAgent = GetComponent<NavMeshAgent>();
+        }
+
         // Update is called once per frame
         void Update()
         {
+            navMeshAgent.enabled = !health.GetIsDead();
             UpdateAnimator();
         }
 

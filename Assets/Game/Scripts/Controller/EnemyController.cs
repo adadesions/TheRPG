@@ -22,6 +22,8 @@ namespace TheRPG.Controller
 
         private void Update()
         {
+            if (health.GetIsDead()) return;
+
             if (DistanceToPlayer() < chaseDistance)
             {
                 fighter.Attack(player);
@@ -39,4 +41,3 @@ namespace TheRPG.Controller
         }
     }
 }
-
