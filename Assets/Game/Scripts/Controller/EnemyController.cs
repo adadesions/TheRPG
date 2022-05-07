@@ -12,6 +12,8 @@ namespace TheRPG.Controller
     {
         [SerializeField] float chaseDistance = 6f;
         [SerializeField] WayPoints wayPoints;
+        [SerializeField] float wayPointTolerance = 1f;
+        [SerializeField] float waypointDwellTime = 3f;
         [SerializeField] float suspicionTime = 3f;
 
         Fighter fighter;
@@ -19,7 +21,9 @@ namespace TheRPG.Controller
         Health health;
         int curWayPointIndex = 0;
         float timeLastSawPlayer = Mathf.Infinity;
+        float timeSinceArrivedAtWaypoint = Mathf.Infinity;
         Mover mover;
+        Vector3 guardPosition;
 
         private void Start()
         {
@@ -27,6 +31,7 @@ namespace TheRPG.Controller
             health = GetComponent<Health>();
             mover = GetComponent<Mover>();
             player = GameObject.FindWithTag("Player");
+            guardPosition = transform.position;
         }
 
         private void Update()
@@ -35,8 +40,7 @@ namespace TheRPG.Controller
 
             if (DistanceToPlayer() && fighter.CanAttack(player))
             {
-                timeLastSawPlayer = 0;
-                fighter.Attack(player);                
+                AttackBehavior();
             }
             else if (timeLastSawPlayer < suspicionTime)
             {
@@ -46,21 +50,33 @@ namespace TheRPG.Controller
             {
                 WayPointBehavior();
             }
+
+            UpdateTimer();
+        }
+
+        private void UpdateTimer()
+        {
+            timeLastSawPlayer += Time.deltaTime;
+            timeSinceArrivedAtWaypoint += Time.deltaTime;
         }
 
         private void WayPointBehavior()
         {
-            Vector3 nextPosition = transform.position;
+            Vector3 nextPosition = guardPosition;
             if (wayPoints != null)
             {
                 if (AtWayPoint())
                 {
+                    timeSinceArrivedAtWaypoint = 0;
                     loopWayPoint();
                 }
                 nextPosition = GetCurrentWayPoint();
             }
 
-            mover.StartMove(nextPosition);
+            if (timeSinceArrivedAtWaypoint > waypointDwellTime)
+            {
+                mover.StartMove(nextPosition);
+            }
         }
 
         private void loopWayPoint()
@@ -72,7 +88,8 @@ namespace TheRPG.Controller
         {
             float distanceToWaypoint = Vector3.Distance(transform.position, GetCurrentWayPoint());
 
-            return distanceToWaypoint < 1f;
+            print("distanceToWaypoint: " + distanceToWaypoint);
+            return distanceToWaypoint < wayPointTolerance;
 
         }
 
@@ -84,6 +101,12 @@ namespace TheRPG.Controller
         private void SuspicionBehavior()
         {
             GetComponent<ActionScheduler>().CancelCurrentAction();
+        }
+
+        private void AttackBehavior()
+        {
+            timeLastSawPlayer = 0;
+            fighter.Attack(player);
         }
 
         private bool DistanceToPlayer()
