@@ -6,7 +6,7 @@ namespace TheRPG.Controller
 {
     public class WayPoints : MonoBehaviour
     {
-        const float radius = 0.5f;
+        const float radius = 4f;
 
         private void OnDrawGizmos()
         {
