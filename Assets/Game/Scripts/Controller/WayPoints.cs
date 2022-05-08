@@ -6,7 +6,7 @@ namespace TheRPG.Controller
 {
     public class WayPoints : MonoBehaviour
     {
-        const float radius = 4f;
+        [SerializeField] float radius = 4f;
 
         private void OnDrawGizmos()
         {
