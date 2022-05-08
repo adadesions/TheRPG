@@ -2,54 +2,59 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using TheRPG.Controller;
 
-namespace TheRPG.Controller
+public class LabController : MonoBehaviour
 {
-    public class LabController : MonoBehaviour
+    [SerializeField] WayPoints wayPoints;
+    [SerializeField] float wayPointsTolerance = 1f;
+
+    int curWayPointIndex = 0;
+    Vector3 robotPos;
+
+    // Start is called before the first frame update
+    void Start()
     {
-        [SerializeField] WayPoint wayPoints;
-        [SerializeField] float wayPointsTolerance = 1f;
+        robotPos = transform.position;
+    }
 
-        int curWayPointIndex = 0;
-        Vector3 robotPos;
+    // Update is called once per frame
+    void Update()
+    {
+        robotPos = transform.position;
+        WayPointBehaviour();
+    }
 
-        // Start is called before the first frame update
-        void Start()
+    private void WayPointBehaviour()
+    {
+        Vector3 nextPos = robotPos;
+        if (wayPoints != null)
         {
-            robotPos = transform.position;
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            robotPos = transform.position;
-            WayPointBehaviour();            
-        }
-
-        private void WayPointBehaviour() {
-            Vector3 nextPos = robotPos;
-            if (wayPoints != null) {
-                if (IsAtWayPoint()) {
-                    MoveNextWayPoint();
-                }
-                nextPos = GetCurrentWayPoint();
+            if (IsAtWayPoint())
+            {
+                MoveNextWayPoint();
             }
-
-            GetComponent<NavMeshAgent>().destination = nextPos;
+            nextPos = GetCurrentWayPoint();
         }
 
-        private bool IsAtWayPoint() {
-            Vector3 curWayPoint = GetCurrentWayPoint();
-            float distanceToWaypoint = Vector3.Distance(robotPos, curWayPoint);
-            return distanceToWaypoint < wayPointsTolerance;
-        }
+        GetComponent<NavMeshAgent>().destination = nextPos;
+    }
 
-        private Vector3 GetCurrentWayPoint() {
-            return wayPoints.GetPoint(curWayPointIndex);
-        }
+    private bool IsAtWayPoint()
+    {
+        Vector3 curWayPoint = GetCurrentWayPoint();
+        float distanceToWaypoint = Vector3.Distance(robotPos, curWayPoint);
+        return distanceToWaypoint < wayPointsTolerance;
+    }
 
-        private void MoveNextWayPoint() {
-            curWayPointIndex = wayPoints.GetNextIndex(curWayPointIndex);
-        }
+    private Vector3 GetCurrentWayPoint()
+    {
+        return wayPoints.GetPoint(curWayPointIndex);
+    }
+
+    private void MoveNextWayPoint()
+    {
+        curWayPointIndex = wayPoints.GetNextIndex(curWayPointIndex);
     }
 }
+
