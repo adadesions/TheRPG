@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace TheRPG.Controller
 {
@@ -21,19 +22,34 @@ namespace TheRPG.Controller
         // Update is called once per frame
         void Update()
         {
-            WayPointBehaviour();
+            robotPos = transform.position;
+            WayPointBehaviour();            
         }
 
         private void WayPointBehaviour() {
             Vector3 nextPos = robotPos;
             if (wayPoints != null) {
-                if (isAtWayPoint()) {
-                    moveNextWayPoint();
+                if (IsAtWayPoint()) {
+                    MoveNextWayPoint();
                 }
                 nextPos = GetCurrentWayPoint();
             }
 
             GetComponent<NavMeshAgent>().destination = nextPos;
+        }
+
+        private bool IsAtWayPoint() {
+            Vector3 curWayPoint = GetCurrentWayPoint();
+            float distanceToWaypoint = Vector3.Distance(robotPos, curWayPoint);
+            return distanceToWaypoint < wayPointsTolerance;
+        }
+
+        private Vector3 GetCurrentWayPoint() {
+            return wayPoints.GetPoint(curWayPointIndex);
+        }
+
+        private void MoveNextWayPoint() {
+            curWayPointIndex = wayPoints.GetNextIndex(curWayPointIndex);
         }
     }
 }
