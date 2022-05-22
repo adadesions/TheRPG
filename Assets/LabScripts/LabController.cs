@@ -44,6 +44,7 @@ public class LabController : MonoBehaviour
     {
         Vector3 curWayPoint = GetCurrentWayPoint();
         float distanceToWaypoint = Vector3.Distance(robotPos, curWayPoint);
+        print("distance: " + distanceToWaypoint + "index: " + curWayPoint);
         return distanceToWaypoint < wayPointsTolerance;
     }
 
