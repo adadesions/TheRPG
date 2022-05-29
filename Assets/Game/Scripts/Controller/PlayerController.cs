@@ -13,7 +13,6 @@ namespace TheRPG.Controller
         {
             if (InteractWithCombat()) return;
             if (InteractWithMovement()) return;
-            print("Idle");
         }
 
         private bool InteractWithCombat()

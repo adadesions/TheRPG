@@ -88,7 +88,7 @@ namespace TheRPG.Controller
         {
             float distanceToWaypoint = Vector3.Distance(transform.position, GetCurrentWayPoint());
 
-            print("distanceToWaypoint: " + distanceToWaypoint);
+            // print("distanceToWaypoint: " + distanceToWaypoint);
             return distanceToWaypoint < wayPointTolerance;
 
         }
