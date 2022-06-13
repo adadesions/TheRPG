@@ -11,9 +11,15 @@ namespace TheRPG.Combat
         [SerializeField] float weaponRange = 2f;
         [SerializeField] float timeBetweenAttack = 1f;
         [SerializeField] float weaponDamage = 5f;
+        [SerializeField] GameObject weaponEquipped = null;
+        [SerializeField] Transform handTransform = null;
 
         Transform target;
         float timeSinceLastAttack = Mathf.Infinity;
+
+        void Start() {
+            SpawnWeapon();
+        }
 
         void Update()
         {
@@ -28,6 +34,10 @@ namespace TheRPG.Combat
                 GetComponent<Mover>().Cancel();
                 AttackBehaviour();
             }
+        }
+
+        private void SpawnWeapon() {
+            Instantiate(weaponEquipped, handTransform);
         }
 
         private void AttackBehaviour()
